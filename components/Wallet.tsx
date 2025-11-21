@@ -7,34 +7,29 @@ export default function Wallet() {
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState<number | null>(null);
 
-  // Генерация кошелька (пример, позже можно заменить на API)
   async function generate() {
-    // здесь будет вызов API для генерации кошелька
-    const r = {
-      privateKey: "PRIVATE_KEY_SAMPLE",
-      address: "TXXXXXXX_SAMPLE_ADDRESS",
-    };
+    const r = await fetch("/api/generate").then(r => r.json());
     setPrivateKey(r.privateKey);
     setAddress(r.address);
     setBalance(null);
   }
 
-  // Проверка баланса
   async function checkBalance() {
-    if (!address) return;
-    // здесь будет вызов API для получения баланса
-    const r = { balance: Math.floor(Math.random() * 100) }; // пример
+    const r = await fetch(`/api/balance?address=${address}`).then(r => r.json());
     setBalance(r.balance);
   }
 
-  // Отправка TRX
   async function send() {
     const to = prompt("Кому отправить?");
     const amount = prompt("Сколько TRX?");
     if (!to || !amount) return;
 
-    // здесь будет вызов API для отправки
-    const r = { txid: "TXID_SAMPLE" }; // пример
+    const r = await fetch("/api/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ privateKey, to, amount })
+    }).then(r => r.json());
+
     alert("TX ID: " + r.txid);
   }
 
