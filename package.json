@@ -12,8 +12,7 @@
     "react-dom": "^18.2.0",
     "tronweb": "^5.3.0",
     "bs58": "^5.0.0",
-    "google-protobuf": "^3.21.12"
-  },
+    "google-protobuf": "^4.0.1"
   "devDependencies": {
     "typescript": "^5.3.0",
     "@types/react": "^18.2.21",
